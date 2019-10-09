@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import "./App.css";
 // STEP 4 - import the button and display components
 // Don't forget to import any extra css/scss files you build into the correct component
-import Numbers from './components/ButtonComponents/NumberButtons/Numbers';
+import Numbers   from './components/ButtonComponents/NumberButtons/Numbers';
 import Operators from './components/ButtonComponents/OperatorButtons/Operators';
-import Specials from './components/ButtonComponents/SpecialButtons/Specials';
+import Specials  from './components/ButtonComponents/SpecialButtons/Specials';
 
-import { numbers } from './data';
+import { numbers   } from './data';
 import { operators } from './data';
-import { specials } from './data';
+import { specials  } from './data';
 
 // Logo has already been provided for you. Do the same for the remaining components
-import Logo from "./components/DisplayComponents/Logo";
+import Logo    from "./components/DisplayComponents/Logo";
 import Display from './components/DisplayComponents/Display';
 
 function App() {
@@ -21,47 +21,41 @@ function App() {
   // the "5" button, or the operator if they click one of those buttons) and then call your setter function to update state.
   // Don't forget to pass the functions (and any additional data needed) to the components as props
 
-  const [display,        setDisplay       ] = useState( 0    );
+  const [display,        setDisplay       ] = useState(    0 );
   const [firstNumInput,  setFirstNumInput ] = useState( null );
   const [secondNumInput, setSecondNumInput] = useState( null );
   const [op,             setOp            ] = useState( null );
 
   function reset() {
-    setDisplay(0);
-    setFirstNumInput(null);
-    setSecondNumInput(null);
-    setOp(null);
+    setDisplay       (    0 );
+    setFirstNumInput ( null );
+    setSecondNumInput( null );
+    setOp            ( null );
   }
 
   function determinValue() {
     const one = parseFloat( firstNumInput  );
     const two = parseFloat( secondNumInput );
 
-    let result = '';
-
     switch (op){
       case operators[0].char:
-        result = one / two;
-        setDisplay  ( result );
-        updateValues( result );
+        setDisplay  ( one / two );
+        updateValues( one / two );
         break;
 
       case operators[1].char:
-        result = one * two;
-        setDisplay  ( result );
-        updateValues( result );
+        setDisplay  ( one * two );
+        updateValues( one * two );
         break;
 
       case operators[2].char:
-        result = one - two;
-        setDisplay  ( result );
-        updateValues( result );
+        setDisplay  ( one - two );
+        updateValues( one - two );
         break;
 
       case operators[3].char:
-        result = one + two;
-        setDisplay  ( result );
-        updateValues( result );
+        setDisplay  ( one + two );
+        updateValues( one + two );
         break;
 
       default:
@@ -70,9 +64,9 @@ function App() {
     }
   }
 
-  function updateValues(n) {
-    setFirstNumInput(n);
-    setSecondNumInput(null);
+  function updateValues( n ) {
+    setFirstNumInput (    n );
+    setSecondNumInput( null );
   }
   
   function getNumbers( button ) {
@@ -108,15 +102,15 @@ function App() {
   return (
     <div className="container">
       <Logo />
-      <Display value={display} />
+      <Display value={ display } />
       <div className="App">
         {/* STEP 4 - Render your components here and be sure to properly import/export all files */}
         <div className='left'>
-          <Specials specials={specials} getSpecial={getSpecial}/>
-          <Numbers numbers={numbers} getNumbers={getNumbers} />
+          <Specials specials={ specials } getSpecial={ getSpecial } />
+          <Numbers  numbers ={ numbers  } getNumbers={ getNumbers } />
         </div>
         <div className='right'>
-          <Operators operators={operators} getOperator={getOperator} />
+          <Operators operators={ operators } getOperator={ getOperator } />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const NumberButton = (props) => {
+const NumberButton = ( props ) => {
   let classes = '';
 
   if ( props.index === 9 ){
@@ -12,7 +12,9 @@ const NumberButton = (props) => {
   return (
     <div className='btn-container'>
       {/* Display a button element rendering the data being passed down from the parent container on props */
-        <button className={classes} onClick={ () => props.getNumbers(props.button)} >{props.button}</button>
+        <button className={ classes } onClick={ () => props.getNumbers( props.button ) } >
+          { props.button }
+        </button>
       }
     </div>
   );
