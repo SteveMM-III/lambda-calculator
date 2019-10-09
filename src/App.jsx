@@ -21,11 +21,94 @@ function App() {
   // the "5" button, or the operator if they click one of those buttons) and then call your setter function to update state.
   // Don't forget to pass the functions (and any additional data needed) to the components as props
 
-  // const [numbersList] = useState(numbers);
-  // const [operatorList] = useState(operators);
-  // const [specialsList] = useState(specials);
+  const [value,          setValue         ] = useState( 0     );
+  const [firstNumInput,  setFirstNumInput ] = useState( null  );
+  const [secondNumInput, setSecondNumInput] = useState( null  );
+  const [op,             setOp            ] = useState( null  );
+  const [stillGoing,     setStillGoing    ] = useState( false );
 
-  const [value, setValue] = useState(0);
+  function reset() {
+    setValue(0);
+    setFirstNumInput(null);
+    setSecondNumInput(null);
+    setOp(null);
+  }
+
+  function determinValue() {
+    const one = parseFloat( firstNumInput  );
+    const two = parseFloat( secondNumInput );
+
+    let result = '';
+
+    switch (op){
+      case operators[0].char:
+        result = one / two;
+        setDisplay  ( result );
+        updateValues( result );
+        break;
+
+      case operators[1].char:
+        result = one * two;
+        setDisplay  ( result );
+        updateValues( result );
+        break;
+
+      case operators[2].char:
+        result = one - two;
+        setDisplay  ( result );
+        updateValues( result );
+        break;
+
+      case operators[3].char:
+        result = one + two;
+        setDisplay  ( result );
+        updateValues( result );
+        break;
+
+      default:
+        updateValues( null );
+        break;
+    }
+  }
+
+  function updateValues(n) {
+    setFirstNumInput(n);
+    setSecondNumInput(null);
+  }
+  
+  function getNumbers( button ) {
+    let first  = firstNumInput  === null ? '' : firstNumInput;
+    let second = secondNumInput === null ? '' : secondNumInput;
+
+    if ( op === null ) {
+      if ( button === numbers[10] && firstNumInput === null) { return null; }
+      setFirstNumInput( first += button );
+      setDisplay(first);
+    } else {
+      if ( button === numbers[10] && secondNumInput === null) { return null; }
+      setSecondNumInput( second += button );
+      setDisplay(second);
+    }
+  }
+
+  function getOperator( button ) {
+    if ( button === operators[4].char ) {
+      determinValue();
+      return null;
+    }
+    setOp(button);
+    if (firstNumInput !== null && secondNumInput !== null) { determinValue(); }
+  }
+
+  function getSpecial( button ) {
+    if ( button === specials[0] ) { 
+      reset();
+    }
+  }
+
+  function setDisplay( display ){
+    setValue(display);
+  };
 
 
   return (
@@ -35,11 +118,11 @@ function App() {
       <div className="App">
         {/* STEP 4 - Render your components here and be sure to properly import/export all files */}
         <div className='left'>
-          <Specials specials={specials} />
-          <Numbers numbers={numbers} />
+          <Specials specials={specials} getSpecial={getSpecial}/>
+          <Numbers numbers={numbers} getNumbers={getNumbers} />
         </div>
         <div className='right'>
-          <Operators operators={operators} />
+          <Operators operators={operators} getOperator={getOperator} />
         </div>
       </div>
     </div>
@@ -47,3 +130,4 @@ function App() {
 }
 
 export default App;
+

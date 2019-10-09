@@ -8,11 +8,11 @@ const NumberButton = (props) => {
   } else {
     classes = 'number button'
   }
-
+  
   return (
     <div className='btn-container'>
       {/* Display a button element rendering the data being passed down from the parent container on props */
-        <button className={classes}>{props.button}</button>
+        <button className={classes} onClick={ () => props.getNumbers(props.button)} >{props.button}</button>
       }
     </div>
   );

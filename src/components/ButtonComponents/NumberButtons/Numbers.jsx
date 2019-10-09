@@ -11,7 +11,7 @@ import { numbers } from '../../../data'
 
 const Numbers = (props) => {
   // STEP 2 - add the imported data to state
-  const { numbers } = props;
+  const { numbers, getNumbers } = props;
 
   return (
     <div className="number-container">
@@ -19,7 +19,7 @@ const Numbers = (props) => {
        component matching the name on the provided file. Pass
        it any props needed by the child component*/
        numbers.map( (button, index) => (
-         <NumberButton key={index} index={index} button={button} />
+         <NumberButton key={index} index={index} button={button} getNumbers={getNumbers} />
        ))
        }
     </div>
